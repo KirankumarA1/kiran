@@ -9,6 +9,10 @@ jobs:
   terraform:
     runs-on: windows-latest
 
+    defaults:
+      run:
+        working-directory: ./
+
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
@@ -22,6 +26,9 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
+
+      - name: Show Files
+        run: dir
 
       - name: Terraform Init
         run: terraform init
