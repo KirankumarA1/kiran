@@ -22,17 +22,6 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
-      - name: Show Current Directory
-        run: pwd
-
-      - name: Show Files
-        run: dir
-
-      - name: Show Terraform Files
-        run: |
-          type main.tf
-          type provider.tf
-
       - name: Terraform Init
         run: terraform init
 
@@ -41,8 +30,12 @@ jobs:
 
       - name: Terraform Plan
         run: |
-          terraform plan -no-color -out=tfplan
+          terraform plan -no-color
 
       - name: Terraform Apply
         run: |
-          terraform apply -auto-approve tfplan
+          terraform apply -auto-approve -no-color
+
+      - name: Verify Azure State
+        run: |
+          terraform state list
